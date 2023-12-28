@@ -25,5 +25,5 @@ ENTRYPOINT [ \
    "-jar", \
    "-Djava.security.egd=file:/dev/./urandom", \
    "-Dsun.net.inetaddr.ttl=0", \
-   "ci-cd-practice-0.0.1-SNAPSHOT.jar" \
+   "ci-cd-sampleproject-0.0.1-SNAPSHOT.jar" \
 ]
