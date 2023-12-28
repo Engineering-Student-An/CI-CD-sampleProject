@@ -1,31 +1,71 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>방문자와 방문 메세지 기록 PAGE!</title>
+<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>회원가입 페이지</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+
 <body>
-<form th:method="post" th:action="@{/visit}" th:object="${visitCreateRequest}">
-    <div>
-        <label th:for="*{name}">방문자 이름 : </label>
-        <input type="text" th:field="*{name}">
-    </div>
-    <div>
-        <label th:for="*{message}">방문 메세지 : </label>
-        <input type="text" th:field="*{message}">
-    </div>
-    <button type="submit">저장</button>
-</form>
-<br/><hr/>
-<div>
-    <h3>방문 횟수 : [[${visitCnt}]]</h3>
-    <ul th:each="visit: ${visits}">
-        <li>
-            방문자 이름: [[${visit.name}]] <br/>
-            방문 메세지 : [[${visit.message}]] <br/>
-            방문한 시간 : [[${#temporals.format(visit.visitTime, 'yy/MM/dd HH:mm:ss')}]]
-        </li>
-    </ul>
-</div>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+    <!--    <div class="jumbotron">-->
+    <h2>회원 가입</h2>
+    <br>
+    <form th:method="post" th:action="|/join|" th:object="${joinRequest}">
+        <div>
+            <label th:for="stuId">닉네임</label>
+            <input type="text" th:field="*{nickname}" th:errorclass="error-input" class="form-control" placeholder="닉네임을 입력하세요">
+            <div class="error-class" th:errors="*{nickname}"></div>
+        </div>
+        <br/>
+        <div>
+            <label th:for="password">비밀번호</label>
+            <input type="password" th:field="*{password}" th:errorclass="error-input" class="form-control" placeholder="비밀번호를 입력하세요">
+            <div class="error-class" th:errors="*{password}"></div>
+        </div>
+        <br/>
+
+        <div>
+            <label th:for="passwordCheck">비밀번호 체크</label>
+            <input type="password" th:field="*{passwordCheck}" th:errorclass="error-input"/ class="form-control" placeholder="비밀번호를 한번 더 입력하세요">
+            <div class="error-class" th:errors="*{passwordCheck}"></div>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-secondary">회원 가입</button> <br/><br/>
+        <body>
+        <div class="container">
+            <h2>회원 가입 한 유저 리스트 (총 회원 수 : <a th:text="${membersCount}"></a> 명)</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>닉네임</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="member : ${members}">
+                    <td th:text="${member.id}"></td>
+                    <td th:text="${member.nickname}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        </body>
+    </form>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
 </body>
+
 </html>
+
+
+<style>
+    .error-class {
+        color: red;
+    }
+    .error-input {
+        border-color: red;
+    }
+</style>
