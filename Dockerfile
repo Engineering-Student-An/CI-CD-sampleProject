@@ -14,7 +14,7 @@ FROM openjdk:21-slim
 WORKDIR /app
 
 # 빌더 이미지에서 jar 파일만 복사
-COPY --from=builder /build/build/libs/ci-cd-practice-0.0.1-SNAPSHOT.jar .
+COPY --from=builder /build/build/libs/ci-cd-sampleProject-0.0.1-SNAPSHOT.jar .
 
 EXPOSE 8080
 
